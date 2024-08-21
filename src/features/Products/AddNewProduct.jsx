@@ -9,7 +9,7 @@ import { useProductsDispatch } from "../../context/ProductsContext";
 function AddNewProduct({ productToEdit = {}, onClose }) {
   const { id: editId } = productToEdit;
   const { title, category, price , quantity, createdAt } = productToEdit;
-  const isEditSession = Boolean(editId);
+  const isEditSession = !!editId;
   const categories = useCategories();
   const dispatch = useProductsDispatch();
 
