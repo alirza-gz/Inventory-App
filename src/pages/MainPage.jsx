@@ -17,12 +17,13 @@ function MainPage() {
   const filteredProducts = products
     .filter((product) => product.title.includes(searchValue))
     .sort((a, b) => {
-      if (sortValue === "latest") {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      } else if (sortValue === "earliest") {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      } else {
-        return 0;
+      switch (sortValue) {
+        case "latest":
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        case "earliest":
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        default:
+          return 0;
       }
     })
     .filter((product) => {
