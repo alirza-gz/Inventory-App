@@ -17,7 +17,7 @@ Inventory App with ReactJS & TailwindCSS
 <ul>
 <li>Create categories</li>
 <li>Add new products based on previous or recently added categories</li>
-<li>Edit and Delete product/li>
+<li>Edit and Delete product</li>
 <li>Sort products based on createdAt Date</li>
 <li>Filter products based on selected category</li>
 <li>Search in products based product title</li>
