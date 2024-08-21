@@ -1,11 +1,21 @@
 import { BiSearchAlt } from "react-icons/bi";
 import Input from "./Input";
 import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
-function SearchBar({ filterField }) {
+function SearchBar({ filterField, defaultValue = "" }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const value = searchParams.get(filterField);
+  useEffect(() => {
+    let value = searchParams.get(filterField);
+
+    if (!value) {
+      searchParams.set(filterField, defaultValue);
+      setSearchParams(searchParams);
+    }
+  }, [searchParams, setSearchParams, filterField, defaultValue]);
+
+  const value = searchParams.get(filterField) || defaultValue;
 
   const handleChange = (e) => {
     searchParams.set(filterField, e.target.value);
@@ -14,7 +24,7 @@ function SearchBar({ filterField }) {
 
   return (
     <Input
-      value={value ? value : ""}
+      value={value}
       onChange={handleChange}
       name="search"
       placeHolder="جستجو"
