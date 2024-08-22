@@ -11,7 +11,6 @@ function ProductsTable({ products }) {
     toast.success("محصول با موفقیت حذف شد.");
   };
 
-  console.log(products);
   if (products.length === 0) return <Empty resourceName="هیچ محصولی" />;
   return (
     <div className="overflow-x-auto dark:[color-scheme:dark]">
