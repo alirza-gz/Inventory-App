@@ -1,31 +1,18 @@
 import { useSearchParams } from "react-router-dom";
 import Select from "./Select";
-import { useEffect } from "react";
 
-function FilterDropDown({ options, filterField, defaultValue = "" }) {
+function FilterDropDown({ options, filterField}) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const filterValue = searchParams.get(filterField) || options.at(0).value;
 
-  useEffect(() => {
-    let value = searchParams.get(filterField);
-
-    if (!value && options.length > 0) {
-      value = defaultValue || options[0].value;
-      searchParams.set(filterField, value);
-      setSearchParams(searchParams);
-    }
-  }, [searchParams, setSearchParams, filterField, defaultValue, options]);
-
-  const value = searchParams.get(filterField) || defaultValue;
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    searchParams.set(filterField, value);
+  function handleChange(e) {
+    searchParams.set(filterField, e.target.value);
     setSearchParams(searchParams);
-  };
+  }
 
   return (
     <div className="w-full">
-      <Select value={value} onChange={handleChange} options={options} />
+      <Select value={filterValue} onChange={handleChange} options={options} />
     </div>
   );
 }
