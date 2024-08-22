@@ -5,6 +5,7 @@ import FilterProducts from "../features/Products/FilterProducts";
 import ProductsTable from "../features/Products/ProductsTable";
 import { useLocation } from "react-router-dom";
 import NumOfItems from "../ui/NumOfItems";
+
 function MainPage() {
   const { search } = useLocation();
   const {
@@ -12,10 +13,13 @@ function MainPage() {
     search: searchValue,
     category: categoryValue,
   } = Object.fromEntries(new URLSearchParams(search));
+
   const products = useProducts();
 
   const filteredProducts = products
-    .filter((product) => product.title.includes(searchValue))
+    .filter((product) =>
+      searchValue ? product.title.includes(searchValue) : true
+    )
     .sort((a, b) => {
       switch (sortValue) {
         case "latest":
@@ -27,7 +31,7 @@ function MainPage() {
       }
     })
     .filter((product) => {
-      if (categoryValue === "ALL") {
+      if (categoryValue === "ALL" || !categoryValue) {
         return true;
       }
       return product.category === categoryValue;
